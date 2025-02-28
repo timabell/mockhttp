@@ -44,6 +44,12 @@ Using `Expect` specifies a "Request Expectation". Request Expectations match onl
 
 This pattern is heavily inspired by [AngularJS's $httpBackend](https://docs.angularjs.org/api/ngMock/service/$httpBackend)
 
+If there are any `Expect` mocks present, then any `When` mocks will *not* be matched until *all* of the `Expect` mocks have had matching requests made. If you want to allow the `When` mocks to be matched even when there are outstanding `Expect` mocks then construct `MockHttpMessageHandler` with `BackendDefinitionBehavior.Always` instead of the default value of `BackendDefinitionBehavior.NoExpectations`:
+
+```csharp
+var mockHttp = new MockHttpMessageHandler(BackendDefinitionBehavior.Always);
+```
+
 ### Matchers (With*)
 
 The `With` and `Expect` methods return a `MockedRequest`, which can have additional constraints (called matchers) placed on them before specifying a response with `Respond`.
