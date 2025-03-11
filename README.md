@@ -50,6 +50,8 @@ If there are any `Expect` mocks present, then any `When` mocks will *not* be mat
 var mockHttp = new MockHttpMessageHandler(BackendDefinitionBehavior.Always);
 ```
 
+Note that for `Expect` mocks the mocks have to be hit in the *same order* that they were set up. In other words, if you setup an `Expect` mock of a `POST` to `/first` and then a mock of a `POST` to `/second`, all http calls to `/second` will fail with "not matched" until a call to `/first` has been made.
+
 ### Matchers (With*)
 
 The `With` and `Expect` methods return a `MockedRequest`, which can have additional constraints (called matchers) placed on them before specifying a response with `Respond`.
